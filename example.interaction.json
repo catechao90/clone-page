@@ -1,0 +1,469 @@
+{
+  "session": {
+    "id": "session-hsbc-offers-home-2026-03-27-001",
+    "capturedAt": "2026-03-27T10:15:30.000Z",
+    "tool": {
+      "name": "playwright",
+      "version": "1.53.0"
+    },
+    "notes": "Example capture file aligned with interaction-capture.schema.json for baseline interaction restoration."
+  },
+  "page": {
+    "url": "https://example.com/offers",
+    "title": "HSBC Offers - Example",
+    "viewport": {
+      "width": 1440,
+      "height": 900
+    },
+    "userAgent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+    "locale": "zh-CN"
+  },
+  "components": [
+    {
+      "name": "SiteHeader",
+      "path": "SiteHeader",
+      "description": "Primary site header that stays fixed at the top and contains branding, skip link, search, and category navigation.",
+      "repeatable": false,
+      "sourceHtmlCode": "<header class=\"bg-white fixed left-0 w-full z-50 top-0 transition-transform ease-in-out group duration-500 svelte-mtmc3u\" id=\"header\">",
+      "selectors": [
+        "header#header"
+      ]
+    },
+    {
+      "name": "CategoryNavigation",
+      "path": "SiteHeader/CategoryNavigation",
+      "description": "Horizontal category navigation section.",
+      "repeatable": false,
+      "sourceHtmlCode": "<nav class=\"fixed md:relative overflow-y-scroll md:overflow-y-auto overflow-x-auto no-scrollbar bg-white z-20 left-0 w-full overflow-hidden border-b-2 border-hsbc-gray-300 md:max-h-[109px] svelte-vplbob\" id=\"nav-categories\" style=\"height: auto; max-height: none;\">",
+      "selectors": [
+        "nav#nav-categories"
+      ],
+      "parent": "SiteHeader"
+    },
+    {
+      "name": "HeroBannerCarousel",
+      "path": "HeroBannerCarousel",
+      "description": "Top hero section featuring a swiper-based banner carousel.",
+      "repeatable": false,
+      "sourceHtmlCode": "<section aria-label=\"banner carousel\" class=\"pb-12\" id=\"hero\">",
+      "selectors": [
+        "section#hero"
+      ]
+    },
+    {
+      "name": "HeroCarouselNavButtonNext",
+      "path": "HeroBannerCarousel/HeroCarouselNavButtonNext",
+      "description": "Next button control for the hero swiper carousel.",
+      "repeatable": false,
+      "sourceHtmlCode": "<button aria-controls=\"swiper-wrapper-ed4110c1423c16987\" aria-label=\"Next banner\" class=\"swiper-button-next z-10\" tabindex=\"0\">",
+      "selectors": [
+        "#hero .swiper-button-next",
+        "button[aria-label='Next banner']"
+      ],
+      "parent": "HeroBannerCarousel"
+    },
+    {
+      "name": "FeaturedOffersSection",
+      "path": "FeaturedOffersSection",
+      "description": "Section showcasing featured offers in a grid layout.",
+      "repeatable": false,
+      "sourceHtmlCode": "<section class=\"text-hsbc-gray-500\" id=\"featured\" tabindex=\"-1\">",
+      "selectors": [
+        "section#featured"
+      ]
+    },
+    {
+      "name": "OfferTileCard",
+      "path": "FeaturedOffersSection/OfferTileCard",
+      "description": "Reusable offer card/tile used across featured grid and multiple carousels.",
+      "repeatable": true,
+      "sourceHtmlCode": "<div class=\"tileBox flex justify-center h-full small w-full svelte-1cbbhsl\">",
+      "selectors": [
+        "#featured .tileBox"
+      ],
+      "parent": "FeaturedOffersSection"
+    },
+    {
+      "name": "FavoriteToggleButton",
+      "path": "FeaturedOffersSection/OfferTileCard/FavoriteToggleButton",
+      "description": "Star button to add/remove offer from favourites.",
+      "repeatable": true,
+      "sourceHtmlCode": "<button aria-pressed=\"false\" class=\"button-fav relative h-11 w-11\">",
+      "selectors": [
+        "#featured .button-fav"
+      ],
+      "parent": "OfferTileCard"
+    },
+    {
+      "name": "FloatingApplyNowButton",
+      "path": "FloatingApplyNowButton",
+      "description": "Fixed-position circular CTA button that encourages users to apply now.",
+      "repeatable": false,
+      "sourceHtmlCode": "<div class=\"fixed z-40 bottom-10 max-xs:bottom-3 right-8\" id=\"scrollTopButton\">",
+      "selectors": [
+        "#scrollTopButton"
+      ]
+    }
+  ],
+  "interactions": [
+    {
+      "id": "int-001-hero-next-click",
+      "timestamp": "2026-03-27T10:16:02.000Z",
+      "type": "click",
+      "trigger": "click-next-banner",
+      "target": {
+        "tagName": "BUTTON",
+        "role": "button",
+        "text": "",
+        "name": "Next banner",
+        "selector": "section#hero .swiper-button-next",
+        "classes": [
+          "swiper-button-next",
+          "z-10"
+        ],
+        "attributes": {
+          "aria-label": "Next banner",
+          "tabindex": "0"
+        },
+        "boundingBox": {
+          "x": 1336,
+          "y": 356,
+          "width": 44,
+          "height": 44
+        }
+      },
+      "currentTarget": {
+        "tagName": "SECTION",
+        "id": "hero",
+        "name": "banner carousel",
+        "selector": "section#hero"
+      },
+      "eventData": {
+        "button": 0,
+        "clientX": 1352,
+        "clientY": 378
+      },
+      "urlBefore": "https://example.com/offers",
+      "urlAfter": "https://example.com/offers",
+      "domBefore": {
+        "html": "<swiper-slide aria-label=\"1 / 4\" class=\"svelte-19uokas swiper-slide-active\" data-swiper-slide-index=\"0\"></swiper-slide>",
+        "text": "Discover spring dining offers",
+        "selector": "section#hero .swiper-slide-active"
+      },
+      "domAfter": {
+        "html": "<swiper-slide aria-label=\"2 / 4\" class=\"svelte-19uokas swiper-slide-active\" data-swiper-slide-index=\"1\"></swiper-slide>",
+        "text": "Travel benefits for card holders",
+        "selector": "section#hero .swiper-slide-active"
+      },
+      "domChanges": [
+        {
+          "kind": "attributes",
+          "target": {
+            "tagName": "SWIPER-SLIDE",
+            "selector": "section#hero swiper-slide[data-swiper-slide-index='0']",
+            "attributes": {
+              "data-swiper-slide-index": "0"
+            }
+          },
+          "attributeName": "class",
+          "oldValue": "svelte-19uokas swiper-slide-active",
+          "newValue": "svelte-19uokas"
+        },
+        {
+          "kind": "attributes",
+          "target": {
+            "tagName": "SWIPER-SLIDE",
+            "selector": "section#hero swiper-slide[data-swiper-slide-index='1']",
+            "attributes": {
+              "data-swiper-slide-index": "1"
+            }
+          },
+          "attributeName": "class",
+          "oldValue": "svelte-19uokas swiper-slide-next",
+          "newValue": "svelte-19uokas swiper-slide-active"
+        }
+      ],
+      "visibilityChanges": [
+        {
+          "target": {
+            "tagName": "SWIPER-SLIDE",
+            "selector": "section#hero swiper-slide[data-swiper-slide-index='1']"
+          },
+          "visibleBefore": true,
+          "visibleAfter": true,
+          "computedStyleBefore": {
+            "opacity": "0.4",
+            "transform": "translate3d(1274px, 0px, 0px)"
+          },
+          "computedStyleAfter": {
+            "opacity": "1",
+            "transform": "translate3d(0px, 0px, 0px)"
+          }
+        }
+      ],
+      "componentMatches": [
+        {
+          "componentName": "HeroCarouselNavButtonNext",
+          "componentPath": "HeroBannerCarousel/HeroCarouselNavButtonNext",
+          "relation": "direct-target",
+          "confidence": 0.99,
+          "matchedSelector": "button[aria-label='Next banner']"
+        },
+        {
+          "componentName": "HeroBannerCarousel",
+          "componentPath": "HeroBannerCarousel",
+          "relation": "closest-ancestor",
+          "confidence": 0.98,
+          "matchedSelector": "section#hero"
+        }
+      ],
+      "effects": [
+        {
+          "type": "advance-carousel",
+          "stateKey": "activeSlideIndex",
+          "description": "Advance hero banner from slide 0 to slide 1.",
+          "affectedSelectors": [
+            "section#hero .swiper-slide-active",
+            "section#hero [aria-label='Next banner']"
+          ]
+        },
+        {
+          "type": "set-attribute",
+          "description": "Update active slide CSS classes to reflect carousel position.",
+          "affectedSelectors": [
+            "section#hero swiper-slide[data-swiper-slide-index='0']",
+            "section#hero swiper-slide[data-swiper-slide-index='1']"
+          ]
+        }
+      ],
+      "notes": "Typical hero carousel next-button interaction."
+    },
+    {
+      "id": "int-002-favorite-toggle-click",
+      "timestamp": "2026-03-27T10:16:28.000Z",
+      "type": "click",
+      "trigger": "toggle-favorite-offer-card",
+      "target": {
+        "tagName": "BUTTON",
+        "role": "button",
+        "name": "Add to favourites",
+        "selector": "section#featured .tileBox:nth-of-type(1) .button-fav",
+        "classes": [
+          "button-fav",
+          "relative",
+          "h-11",
+          "w-11"
+        ],
+        "attributes": {
+          "aria-pressed": "false"
+        },
+        "boundingBox": {
+          "x": 1184,
+          "y": 982,
+          "width": 44,
+          "height": 44
+        }
+      },
+      "currentTarget": {
+        "tagName": "DIV",
+        "selector": "section#featured .tileBox:nth-of-type(1)",
+        "classes": [
+          "tileBox",
+          "flex",
+          "justify-center",
+          "h-full",
+          "small",
+          "w-full"
+        ]
+      },
+      "eventData": {
+        "button": 0,
+        "clientX": 1203,
+        "clientY": 1001
+      },
+      "urlBefore": "https://example.com/offers",
+      "urlAfter": "https://example.com/offers",
+      "domBefore": {
+        "html": "<button aria-pressed=\"false\" class=\"button-fav relative h-11 w-11\"></button>",
+        "text": "",
+        "selector": "section#featured .tileBox:nth-of-type(1) .button-fav"
+      },
+      "domAfter": {
+        "html": "<button aria-pressed=\"true\" class=\"button-fav relative h-11 w-11 active\"></button>",
+        "text": "",
+        "selector": "section#featured .tileBox:nth-of-type(1) .button-fav"
+      },
+      "domChanges": [
+        {
+          "kind": "attributes",
+          "target": {
+            "tagName": "BUTTON",
+            "selector": "section#featured .tileBox:nth-of-type(1) .button-fav"
+          },
+          "attributeName": "aria-pressed",
+          "oldValue": "false",
+          "newValue": "true"
+        },
+        {
+          "kind": "attributes",
+          "target": {
+            "tagName": "BUTTON",
+            "selector": "section#featured .tileBox:nth-of-type(1) .button-fav"
+          },
+          "attributeName": "class",
+          "oldValue": "button-fav relative h-11 w-11",
+          "newValue": "button-fav relative h-11 w-11 active"
+        }
+      ],
+      "visibilityChanges": [],
+      "componentMatches": [
+        {
+          "componentName": "FavoriteToggleButton",
+          "componentPath": "FeaturedOffersSection/OfferTileCard/FavoriteToggleButton",
+          "relation": "direct-target",
+          "confidence": 0.99,
+          "matchedSelector": "#featured .button-fav"
+        },
+        {
+          "componentName": "OfferTileCard",
+          "componentPath": "FeaturedOffersSection/OfferTileCard",
+          "relation": "closest-ancestor",
+          "confidence": 0.95,
+          "matchedSelector": "#featured .tileBox"
+        }
+      ],
+      "effects": [
+        {
+          "type": "toggle-state",
+          "stateKey": "isFavourite",
+          "description": "Toggle offer card favourite state from false to true.",
+          "affectedSelectors": [
+            "section#featured .tileBox:nth-of-type(1) .button-fav"
+          ]
+        },
+        {
+          "type": "set-attribute",
+          "description": "Update aria-pressed for accessibility parity.",
+          "affectedSelectors": [
+            "section#featured .tileBox:nth-of-type(1) .button-fav"
+          ]
+        }
+      ],
+      "notes": "Interactive favourite toggle on featured offer tile."
+    },
+    {
+      "id": "int-003-scroll-show-floating-cta",
+      "timestamp": "2026-03-27T10:17:10.000Z",
+      "type": "scroll",
+      "trigger": "scroll-page-down",
+      "target": {
+        "tagName": "BODY",
+        "selector": "body"
+      },
+      "currentTarget": {
+        "tagName": "WINDOW",
+        "selector": "window"
+      },
+      "eventData": {
+        "value": 860
+      },
+      "urlBefore": "https://example.com/offers",
+      "urlAfter": "https://example.com/offers",
+      "domBefore": {
+        "html": "<div id=\"scrollTopButton\" class=\"fixed z-40 bottom-10 max-xs:bottom-3 right-8 hidden\"></div>",
+        "text": "Apply now",
+        "selector": "#scrollTopButton"
+      },
+      "domAfter": {
+        "html": "<div id=\"scrollTopButton\" class=\"fixed z-40 bottom-10 max-xs:bottom-3 right-8\"></div>",
+        "text": "Apply now",
+        "selector": "#scrollTopButton"
+      },
+      "domChanges": [
+        {
+          "kind": "visibility",
+          "target": {
+            "tagName": "DIV",
+            "id": "scrollTopButton",
+            "selector": "#scrollTopButton"
+          },
+          "oldValue": "hidden",
+          "newValue": "visible"
+        },
+        {
+          "kind": "attributes",
+          "target": {
+            "tagName": "DIV",
+            "id": "scrollTopButton",
+            "selector": "#scrollTopButton"
+          },
+          "attributeName": "class",
+          "oldValue": "fixed z-40 bottom-10 max-xs:bottom-3 right-8 hidden",
+          "newValue": "fixed z-40 bottom-10 max-xs:bottom-3 right-8"
+        }
+      ],
+      "visibilityChanges": [
+        {
+          "target": {
+            "tagName": "DIV",
+            "id": "scrollTopButton",
+            "selector": "#scrollTopButton"
+          },
+          "visibleBefore": false,
+          "visibleAfter": true,
+          "computedStyleBefore": {
+            "display": "none",
+            "opacity": "0"
+          },
+          "computedStyleAfter": {
+            "display": "block",
+            "opacity": "1"
+          }
+        }
+      ],
+      "componentMatches": [
+        {
+          "componentName": "FloatingApplyNowButton",
+          "componentPath": "FloatingApplyNowButton",
+          "relation": "cross-component-effect",
+          "confidence": 0.93,
+          "matchedSelector": "#scrollTopButton"
+        }
+      ],
+      "effects": [
+        {
+          "type": "show-element",
+          "stateKey": "showFloatingApplyNow",
+          "description": "Show floating apply-now CTA after the page is scrolled beyond threshold.",
+          "affectedSelectors": [
+            "#scrollTopButton"
+          ]
+        }
+      ],
+      "notes": "Example of scroll-driven UI state change."
+    }
+  ],
+  "screenshots": [
+    {
+      "id": "shot-001-before-hero-click",
+      "path": "artifacts/shot-001-before-hero-click.png",
+      "label": "Hero before next click",
+      "relatedInteractionId": "int-001-hero-next-click"
+    },
+    {
+      "id": "shot-002-after-hero-click",
+      "path": "artifacts/shot-002-after-hero-click.png",
+      "label": "Hero after next click",
+      "relatedInteractionId": "int-001-hero-next-click"
+    }
+  ],
+  "summary": {
+    "totalInteractions": 3,
+    "eventTypeCounts": {
+      "click": 2,
+      "scroll": 1
+    },
+    "mappedInteractionCount": 3,
+    "unmappedInteractionCount": 0
+  }
+}

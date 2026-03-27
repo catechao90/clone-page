@@ -1,0 +1,520 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://local.schema/interaction-capture.schema.json",
+  "title": "Interaction Capture and Component Mapping",
+  "description": "Schema for storing raw website interaction capture data, DOM mutations, and component attribution for React reconstruction.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "session",
+    "page",
+    "components",
+    "interactions"
+  ],
+  "properties": {
+    "session": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "capturedAt", "tool"],
+      "properties": {
+        "id": {
+          "type": "string",
+          "description": "Unique identifier for this capture session."
+        },
+        "capturedAt": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "tool": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["name", "version"],
+          "properties": {
+            "name": {
+              "type": "string",
+              "examples": ["playwright"]
+            },
+            "version": {
+              "type": "string"
+            }
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "page": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["url", "title", "viewport"],
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "title": {
+          "type": "string"
+        },
+        "viewport": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["width", "height"],
+          "properties": {
+            "width": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1
+            }
+          }
+        },
+        "userAgent": {
+          "type": "string"
+        },
+        "locale": {
+          "type": "string"
+        }
+      }
+    },
+    "components": {
+      "type": "array",
+      "description": "Flattened component list derived from component.json or later attribution step.",
+      "items": {
+        "$ref": "#/$defs/component"
+      }
+    },
+    "interactions": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "$ref": "#/$defs/interaction"
+      }
+    },
+    "screenshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/screenshot"
+      }
+    },
+    "summary": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "totalInteractions": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "eventTypeCounts": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "integer",
+            "minimum": 0
+          }
+        },
+        "mappedInteractionCount": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "unmappedInteractionCount": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    }
+  },
+  "$defs": {
+    "component": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string",
+          "description": "Hierarchical path such as SiteHeader/CategoryNavigation/DesktopCategoryCarousel."
+        },
+        "description": {
+          "type": "string"
+        },
+        "repeatable": {
+          "type": "boolean"
+        },
+        "sourceHtmlCode": {
+          "type": "string"
+        },
+        "selectors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "parent": {
+          "type": "string"
+        }
+      }
+    },
+    "interaction": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id",
+        "timestamp",
+        "type",
+        "target",
+        "domChanges"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "type": {
+          "type": "string",
+          "enum": [
+            "click",
+            "dblclick",
+            "mousedown",
+            "mouseup",
+            "mouseover",
+            "mouseout",
+            "mouseenter",
+            "mouseleave",
+            "mousemove",
+            "focus",
+            "blur",
+            "input",
+            "change",
+            "keydown",
+            "keyup",
+            "submit",
+            "scroll"
+          ]
+        },
+        "trigger": {
+          "type": "string",
+          "description": "Human-readable trigger label, such as click-next-banner or hover-category-tile."
+        },
+        "target": {
+          "$ref": "#/$defs/domNodeRef"
+        },
+        "currentTarget": {
+          "$ref": "#/$defs/domNodeRef"
+        },
+        "eventData": {
+          "type": "object",
+          "additionalProperties": true,
+          "properties": {
+            "key": {
+              "type": "string"
+            },
+            "code": {
+              "type": "string"
+            },
+            "button": {
+              "type": "integer"
+            },
+            "clientX": {
+              "type": "number"
+            },
+            "clientY": {
+              "type": "number"
+            },
+            "value": {
+              "type": ["string", "number", "boolean", "null"]
+            },
+            "checked": {
+              "type": "boolean"
+            }
+          }
+        },
+        "urlBefore": {
+          "type": "string"
+        },
+        "urlAfter": {
+          "type": "string"
+        },
+        "domBefore": {
+          "$ref": "#/$defs/domSnapshot"
+        },
+        "domAfter": {
+          "$ref": "#/$defs/domSnapshot"
+        },
+        "domChanges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/domChange"
+          }
+        },
+        "visibilityChanges": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/visibilityChange"
+          }
+        },
+        "componentMatches": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/componentMatch"
+          }
+        },
+        "effects": {
+          "type": "array",
+          "description": "Optional normalized effects to help generate React state/actions.",
+          "items": {
+            "$ref": "#/$defs/effect"
+          }
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "domNodeRef": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "tagName": {
+          "type": "string"
+        },
+        "id": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string",
+          "description": "Accessible name if available."
+        },
+        "selector": {
+          "type": "string"
+        },
+        "xpath": {
+          "type": "string"
+        },
+        "classes": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "attributes": {
+          "type": "object",
+          "additionalProperties": {
+            "type": ["string", "number", "boolean", "null"]
+          }
+        },
+        "boundingBox": {
+          "$ref": "#/$defs/boundingBox"
+        }
+      }
+    },
+    "domSnapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "html": {
+          "type": "string"
+        },
+        "text": {
+          "type": "string"
+        },
+        "selector": {
+          "type": "string"
+        }
+      }
+    },
+    "domChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["kind", "target"],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "enum": [
+            "attributes",
+            "childList",
+            "characterData",
+            "visibility",
+            "layout",
+            "url"
+          ]
+        },
+        "target": {
+          "$ref": "#/$defs/domNodeRef"
+        },
+        "attributeName": {
+          "type": "string"
+        },
+        "oldValue": {
+          "type": ["string", "number", "boolean", "null"]
+        },
+        "newValue": {
+          "type": ["string", "number", "boolean", "null"]
+        },
+        "addedNodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/domNodeRef"
+          }
+        },
+        "removedNodes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/domNodeRef"
+          }
+        },
+        "htmlBefore": {
+          "type": "string"
+        },
+        "htmlAfter": {
+          "type": "string"
+        }
+      }
+    },
+    "visibilityChange": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["target"],
+      "properties": {
+        "target": {
+          "$ref": "#/$defs/domNodeRef"
+        },
+        "visibleBefore": {
+          "type": "boolean"
+        },
+        "visibleAfter": {
+          "type": "boolean"
+        },
+        "computedStyleBefore": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        },
+        "computedStyleAfter": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "componentMatch": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["componentName", "confidence", "relation"],
+      "properties": {
+        "componentName": {
+          "type": "string"
+        },
+        "componentPath": {
+          "type": "string"
+        },
+        "relation": {
+          "type": "string",
+          "enum": [
+            "direct-target",
+            "closest-ancestor",
+            "affected-descendant",
+            "cross-component-effect"
+          ]
+        },
+        "confidence": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1
+        },
+        "matchedSelector": {
+          "type": "string"
+        }
+      }
+    },
+    "effect": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["type", "description"],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "toggle-state",
+            "open-overlay",
+            "close-overlay",
+            "navigate",
+            "advance-carousel",
+            "update-input",
+            "submit-form",
+            "scroll-into-view",
+            "set-attribute",
+            "show-element",
+            "hide-element"
+          ]
+        },
+        "stateKey": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "affectedSelectors": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "boundingBox": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["x", "y", "width", "height"],
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "width": {
+          "type": "number",
+          "minimum": 0
+        },
+        "height": {
+          "type": "number",
+          "minimum": 0
+        }
+      }
+    },
+    "screenshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["id", "path"],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "label": {
+          "type": "string"
+        },
+        "relatedInteractionId": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}
